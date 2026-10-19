@@ -1,10 +1,22 @@
+# Môi trường của notebook (Python 3.12). File .pkl lưu bằng scikit-learn 1.7.2,
+# nên cần đúng phiên bản này để nạp mô hình và tái lập kết quả.
 numpy==1.26.4
 pandas==2.2.3
-scikit-learn==1.7.2
 scipy==1.11.4
-matplotlib==3.8.4
-seaborn==0.13.2
+scikit-learn==1.7.2
 joblib==1.5.2
 statsmodels==0.14.4
 imbalanced-learn==0.14.2
-# streamlit: 
+threadpoolctl>=3.1
+
+# Notebook
+matplotlib>=3.8
+seaborn>=0.13
+ipykernel>=6.29
+
+# Dashboard
+streamlit>=1.40,<2
+plotly>=5.18
+
+# Kiểm thử
+pytest>=8.0

@@ -1,0 +1,50 @@
+{
+  "_mo_ta": "Tham số của dashboard, lấy từ notebook 02_Modeling_Models. test_app.py kiểm tra file này khớp với app.py và models/*.pkl.",
+
+  "split": {
+    "test_size": 0.2,
+    "random_state": 42,
+    "stratify": "Churn"
+  },
+
+  "cost_sensitive_thresholds": {
+    "_mo_ta": "Ngưỡng khóa trên OOF training, tối thiểu hóa Cost = cost_fn x FN + cost_fp x FP (kịch bản sensitivity 5:1). File: models/locked_thresholds.pkl",
+    "cost_fn": 5,
+    "cost_fp": 1,
+    "KNN": 0.2,
+    "DT": 0.25,
+    "NB": 0.89
+  },
+
+  "net_benefit_thresholds": {
+    "_mo_ta": "Ngưỡng khóa trên OOF training, tối đa hóa Expected Net Benefit (tương đương FN:FP = 2:1). Dashboard dùng bộ ngưỡng này. File: models/locked_net_benefit_thresholds.pkl",
+    "KNN": 0.39,
+    "DT": 0.48,
+    "NB": 0.94
+  },
+
+  "business_assumptions": {
+    "_mo_ta": "Giả định minh họa, không phải dữ liệu thực. Net Benefit = TP x h x s - (TP + FP) x C",
+    "C": 10,
+    "s": 0.3,
+    "h": 100,
+    "C_mo_ta": "Chi phí liên hệ mỗi khách (RETENTION_COST)",
+    "s_mo_ta": "Tỉ lệ giữ chân thành công của khách churn được tiếp cận (RETENTION_SUCCESS_RATE)",
+    "h_mo_ta": "Giá trị giữ được mỗi khách (SAVED_CUSTOMER_VALUE)"
+  },
+
+  "risk_value_segmentation": {
+    "_mo_ta": "Phân khúc Risk x Value (mục 11 notebook). Cutoff khóa trên training/OOF.",
+    "risk_threshold": 0.659505,
+    "risk_threshold_mo_ta": "Phân vị 70% điểm rủi ro OOF của Decision Tree",
+    "value_threshold": 70.5,
+    "value_threshold_mo_ta": "Median MonthlyCharges của tập training (proxy giá trị, không phải CLV)"
+  },
+
+  "notebook_test_net_benefit": {
+    "_mo_ta": "Net Benefit trên tập test tại ngưỡng Net Benefit đã khóa, giả định 10 / 100 / 30%",
+    "KNN": 2960,
+    "DT": 3090,
+    "NB": 2620
+  }
+}
