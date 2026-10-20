@@ -377,8 +377,7 @@ def page_overview():
                 card_title(title)
                 st.plotly_chart(rate_bar(d, name, order))
 
-    section("Hiệu năng 3 mô hình trên tập test",
-            "Ngưỡng phân loại mặc định 0,5. Tập test gồm 1.409 khách, không tham gia huấn luyện hay chọn tham số.")
+    section("Hiệu năng 3 mô hình trên tập test",)
     scores, y = test_scores()
     rows = []
     for name, p in scores.items():
@@ -416,9 +415,7 @@ def apply_preset(name):
 
 def page_predict():
     models, _, thr_nb = load_models()
-    section("Dự đoán rủi ro churn theo từng khách hàng",
-            "Điền thông tin rồi bấm Dự đoán. Điểm từ 0 đến 1 là điểm xếp hạng rủi ro "
-            "chưa hiệu chỉnh, không phải xác suất churn chính xác.")
+    section("Dự đoán rủi ro churn theo từng khách hàng")
 
     for key, v in PRESETS["risky"].items():
         st.session_state.setdefault(key, v)
@@ -463,7 +460,7 @@ def page_predict():
             st.number_input("Cước hàng tháng (MonthlyCharges, $)", min_value=18.0,
                             max_value=120.0, step=0.05, key="monthly")
             total = round(st.session_state["tenure"] * st.session_state["monthly"], 2)
-            st.caption(f"TotalCharges tự tính = tenure × cước tháng = ${total:,.2f}")
+            st.caption(f"TotalCharges = tenure × cước tháng = ${total:,.2f}")
 
         record = {
             "gender": st.session_state["gender"],
@@ -539,13 +536,6 @@ def page_predict():
             f"<span style='color:#5b6b7f;font-size:.82rem'>Risk: điểm Decision Tree ≥ {RISK_CUTOFF:.2f}. "
             f"Value: cước tháng ≥ ${VALUE_CUTOFF:.2f} (proxy, không phải CLV).</span>", "info")
 
-    with st.expander("Vì sao Decision Tree cho điểm này? (đường đi trong cây)"):
-        for r in dt_rules(models["Decision Tree"], row):
-            st.write("• " + r)
-        st.caption("Cây sâu 3 chỉ dùng một vài đặc trưng (chủ yếu Contract, Fiber optic, "
-                   "tenure, MonthlyCharges), nên thay đổi các trường khác có thể không đổi điểm.")
-
-
 # ----------------------------------------------------------------------------
 # Tab 3 - Quyết định can thiệp
 # ----------------------------------------------------------------------------
@@ -553,9 +543,7 @@ def page_decision():
     models, _, thr_nb = load_models()
     scores, y = test_scores()
 
-    section("So sánh 3 kịch bản hỗ trợ khách hàng",
-            "Lợi ích ròng kỳ vọng = TP × giá trị × tỉ lệ thành công − số khách được liên hệ × chi phí. "
-            "Tính trên tập test (1.409 khách).")
+    section("So sánh 3 kịch bản hỗ trợ khách hàng", "Giả định chi phí và giá trị giữ chân khách hàng để tính Net Benefit.")
     with st.container(border=True):
         card_title("Giả định kịch bản")
         a, b, c = st.columns(3)
@@ -646,12 +634,6 @@ def page_decision():
                          "Net Benefit app": round(got), "Net Benefit notebook": exp,
                          "Khớp": "✓" if round(got) == exp else "✗ (kiểm tra phiên bản thư viện)"})
         st.dataframe(pd.DataFrame(rows), hide_index=True)
-
-    callout("<b>Hạn chế.</b> (1) Chi phí, giá trị và tỉ lệ thành công là giả định minh họa. "
-            "(2) Ngưỡng của từng mô hình được khóa từ dữ liệu training theo giả định gốc 10/100/30%; "
-            "kéo thanh trượt không tối ưu lại ngưỡng. (3) Decision Tree bỏ sót khách churn có hợp "
-            "đồng dài hạn và điểm rủi ro chưa được hiệu chỉnh xác suất.", "warn")
-
 
 # ----------------------------------------------------------------------------
 # Bố cục chính
