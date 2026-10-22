@@ -104,7 +104,7 @@ Bộ test kiểm tra: (1) `config.json` hợp lệ và khớp hằng số trong 
 | Lỗi hoặc cảnh báo khi nạp `.pkl`      | `python -m pip show scikit-learn` phải là 1.7.2; cài lại theo `requirements.txt`   |
 | Mục "Kiểm tra tái lập" ở tab 3 hiện ✗ | Sai phiên bản thư viện hoặc `models/` được tạo từ lần chạy khác                    |
 
-## Nhóm thực hiện
+## Nhóm thực hiện: Nhóm 2
 
 1. Đặng Ngọc Kim Khánh - 52300208
 2. Phan Thuý Vi - 52300084
